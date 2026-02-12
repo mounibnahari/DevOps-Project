@@ -2,7 +2,7 @@ name: CD1 - Deploy GitHub Pages
 
 on:
   workflow_run:
-    workflows: ["CI - Verification HTML"]
+    workflows: ["CI - Vérification HTM"]
     types: [completed]
 
 permissions:
