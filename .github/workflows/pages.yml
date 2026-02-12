@@ -1,0 +1,26 @@
+name: CD1 - Deploy GitHub Pages
+
+on:
+  workflow_run:
+    workflows: ["CI - Verification HTML"]
+    types: [completed]
+
+permissions:
+  contents: write
+
+jobs:
+  deploy-pages:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository at main
+        uses: actions/checkout@v3
+        with:
+          ref: main
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
+          publish_branch: gh-pages
